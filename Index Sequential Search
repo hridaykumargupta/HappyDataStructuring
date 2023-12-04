@@ -1,0 +1,62 @@
+//YouTube link Video Explanation- https://youtu.be/NPfY4dgwMto
+
+#include<stdio.h>
+#include<stdlib.h>
+void IndexedSequentialSearch(int [],int ,int);
+void SeqSearch(int [],int,int ,int );
+int main()
+{
+	int arr[]={1,3,4,6,9,10,15,19,25,29,60,90,100};
+	int n=13;
+	int key,i;
+	printf("Array Elements are below\n");
+	for(i=0;i<n;i++)
+	  printf("%d ",arr[i]);
+    printf("\nEnter the key which you want to search");
+    scanf("%d",&key); 
+   
+   	IndexedSequentialSearch(arr,n,key);
+		return 0;
+}
+void IndexedSequentialSearch(int arr[],int n,int key)
+{
+	int index[20],i;
+	int j=0,x=0,start,end,bs;
+	printf("Enter block size:");
+	scanf("%d",&bs);
+	for(i=0;i<n;i=i+bs)   // Creating Index Array
+	 index[x++]=i;
+	if((key<arr[index[0]]) || (key>arr[index[x-1]]))    // Cheking boundary case
+	{
+		printf("\nKey not found in array...");
+		exit(0);
+	}
+	else
+	{
+	  for(i=1;i<=x;i++)
+	  	if(key<=arr[index[i]])
+	  	{
+	  		start=index[i-1];
+	  		end=start+bs;
+	  		break;
+		}
+    }
+	 SeqSearch(arr,start,end,key);	//Calling Sequential Search	
+}
+void SeqSearch(int arr[],int start,int end,int key)
+{
+	int i,flag=0;
+	for(i=start;i<=end;i++)
+	{
+		if(arr[i]==key)
+		{
+			flag=1;
+			break;
+		}
+	}
+	if(flag==1)
+	printf("\n%d is found at position no. %d",key,i+1);
+	else
+	printf("\nkey is not found in array");
+}
+
